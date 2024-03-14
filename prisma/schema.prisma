@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model markers {
+  id        String   @id @default(uuid())
+  latitude  Float
+  longitude Float
+  pollutionType   String 
+  description   String 
+  photo  String
+}

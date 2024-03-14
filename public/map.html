@@ -2,18 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>OPAS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-        integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
-        crossorigin=""/>
-  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-          integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
-          crossorigin=""></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
   <style>
     #map {
       bottom: 0;
@@ -40,7 +34,7 @@
 
 <div id="map"></div>
 
-<form id="markerForm" enctype="multipart/form-data">
+<form id="markerForm" enctype="multipart/form-data" action="/markers" method="post">
   <label for="pollutionType">Type of Pollution:</label>
   <input type="text" id="pollutionType" name="pollutionType" required><br>
   <label for="description">Description:</label>
@@ -49,7 +43,6 @@
   <input type="file" id="photo" name="photo" accept="image/*" required><br>
   <button type="submit">Add Marker</button>
 </form>
-
 <script>
   var map = L.map('map').setView([0, 0], 13);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -216,6 +209,19 @@
       }
     };
   });
+
+  function fetchMarkers() {
+    fetch('/markers')
+      .then(response => response.json())
+      .then(markers => {
+        markers.forEach(marker => {
+          addMarker(marker.latitude, marker.longitude, `<strong>Type:</strong> ${marker.pollutionType}<br><strong>Description:</strong> ${marker.description}<br><img src="${marker.photo}" width="200" height="200">`);
+        });
+      })
+      .catch(error => console.error('Error fetching markers:', error));
+  }
+
+  window.addEventListener('load', fetchMarkers);
 </script>
 
 </body>
