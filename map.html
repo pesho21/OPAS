@@ -60,6 +60,7 @@
 
   var markers = [];
   var currentLocationMarker;
+  var circle;
 
   function addMarker(lat, lng, popupContent) {
     var marker = L.marker([lat, lng]).addTo(map);
@@ -67,6 +68,28 @@
       marker.bindPopup(popupContent);
     }
     markers.push(marker);
+    updateCircleColor();
+  }
+
+  function updateCircleColor() {
+    if (!circle) return;
+    var clickedLocation = circle.getLatLng();
+    var markersWithinRadius = 0;
+    for (var i = 0; i < markers.length; i++) {
+      var marker = markers[i];
+      var markerLocation = marker.getLatLng();
+      var markerDistance = clickedLocation.distanceTo(markerLocation);
+      if (markerDistance <= circle.getRadius()) {
+        markersWithinRadius++;
+      }
+    }
+    if (markersWithinRadius >= 5) {
+      circle.setStyle({ color: 'red', fillColor: 'red' });
+    } else if (markersWithinRadius >= 3) {
+      circle.setStyle({ color: 'orange', fillColor: 'orange' });
+    } else {
+      circle.setStyle({ color: 'yellow', fillColor: 'yellow' });
+    }
   }
 
   function getCurrentLocation() {
@@ -108,12 +131,32 @@
     }
 
     if (markersWithinRadius >= 5) {
-      L.circle(clickedLocation, {
-        radius: 500,
-        color: 'red',
-        fillColor: 'red',
-        fillOpacity: 0.2
-      }).addTo(map);
+      if (!circle) {
+        circle = L.circle(clickedLocation, {
+          radius: 500,
+          color: 'red',
+          fillColor: 'red',
+          fillOpacity: 0.2
+        }).addTo(map);
+      }
+    } else if (markersWithinRadius >= 3) {
+      if (!circle) {
+        circle = L.circle(clickedLocation, {
+          radius: 500,
+          color: 'orange',
+          fillColor: 'orange',
+          fillOpacity: 0.2
+        }).addTo(map);
+      }
+    } else if (markersWithinRadius >= 1) {
+      if (!circle) {
+        circle = L.circle(clickedLocation, {
+          radius: 500,
+          color: 'yellow',
+          fillColor: 'yellow',
+          fillOpacity: 0.2
+        }).addTo(map);
+      }
     }
 
     document.getElementById('pollutionType').value = '';
