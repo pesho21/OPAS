@@ -56,13 +56,44 @@
   var circle;
 
   function addMarker(lat, lng, popupContent) {
-    var marker = L.marker([lat, lng]).addTo(map);
+  // Create marker data object
+  const markerData = {
+    latitude: parseFloat(lat),
+    longitude: parseFloat(lng),
+    pollutionType: document.getElementById('pollutionType').value,
+    description: document.getElementById('description').value,
+    photo: document.getElementById('photo').files[0]
+  };
+
+  // Make POST request to /markers endpoint
+  fetch('/markers', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(markerData)
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Failed to add marker');
+    }
+    return response.json(); // Parse response JSON
+  })
+  .then(newMarker => {
+    // Add marker to map
+    var marker = L.marker([newMarker.latitude, newMarker.longitude]).addTo(map);
     if (popupContent) {
       marker.bindPopup(popupContent);
     }
     markers.push(marker);
     updateCircleColor();
-  }
+    console.log('Marker added successfully');
+  })
+  .catch(error => {
+    console.error('Error adding marker:', error);
+    alert('Failed to add marker');
+  });
+}
   
   function addPersonalLocationMarker(lat, lng, popupContent, isPersonalLocation = false) {
     var markerIcon = isPersonalLocation ? L.icon({
@@ -211,6 +242,7 @@
   });
 
   function fetchMarkers() {
+    console.log('Fetching markers...');
     fetch('/markers')
       .then(response => response.json())
       .then(markers => {

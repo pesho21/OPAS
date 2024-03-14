@@ -14,7 +14,7 @@ app.use(express.json());
 
 app.get('/markers', async (req, res) => {
     try {
-      const markers = await prisma.marker.findMany();
+      const markers = await prisma.markers.findMany();
       res.json(markers);
     } catch (error) {
       console.error('Error fetching markers from database:', error);
@@ -28,10 +28,11 @@ app.get('/', (req, res) => {
 
 app.post('/markers', upload.single('photo'), async (req, res) => {
   const { latitude, longitude, pollutionType, description } = req.body;
+  console.log(req.body);
   const imageUrl = req.file ? req.file.path : null;
 
   try {
-    const createdMarker = await prisma.marker.create({
+    const createdMarker = await prisma.markers.create({
       data: {
         latitude,
         longitude,
