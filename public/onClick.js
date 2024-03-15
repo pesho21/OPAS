@@ -13,6 +13,10 @@ map.on('click', function(e) {
   var markersWithinRadius = 0;
   for (var i = 0; i < markers.length; i++) {
     var marker = markers[i];
+    // Check if the marker is the current location marker
+    if (marker === currentLocationMarker) {
+      continue; // Skip counting the current location marker
+    }
     var markerLocation = marker.getLatLng();
     var markerDistance = clickedLocation.distanceTo(markerLocation);
     if (markerDistance <= 100) {
@@ -20,6 +24,9 @@ map.on('click', function(e) {
     }
   }
 
+  // Rest of the code remains the same...
+
+  console.log("Markers within radius: " + markersWithinRadius);
   // Check if the clicked location is within any existing circles
   var withinExistingCircle = false;
   for (var j = 0; j < markers.length; j++) {
@@ -34,14 +41,13 @@ map.on('click', function(e) {
     }
   }
 
-  // Create a new circle only if the clicked location is not within any existing circle
   if (!withinExistingCircle) {
     var circleColor;
-    if (markersWithinRadius >= 5) {
+    if (markersWithinRadius >= 6) {
       circleColor = 'red';
-    } else if (markersWithinRadius >= 3) {
+    } else if (markersWithinRadius >= 4) {
       circleColor = 'orange';
-    } else if (markersWithinRadius >= 1) {
+    } else if (markersWithinRadius >= 2) {
       circleColor = 'yellow';
     }
 
@@ -53,6 +59,7 @@ map.on('click', function(e) {
         fillOpacity: 0.2
       }).addTo(map);
       markers.push(newCircle);
+      console.log("New circle added with color: " + circleColor); // Add this line
     }
   }
 
@@ -117,11 +124,13 @@ function updateCircleColor(circle) {
       markersWithinRadius++;
     }
   }
-  if (markersWithinRadius >= 5) {
+  if (markersWithinRadius >= 8) {
     circle.setStyle({ color: 'red', fillColor: 'red' });
-  } else if (markersWithinRadius >= 3) {
+  } else if (markersWithinRadius >= 6) {
     circle.setStyle({ color: 'orange', fillColor: 'orange' });
-  } else if (markersWithinRadius >= 2){
+  } else if (markersWithinRadius >= 4) {
+    circle.setStyle({ color: 'yellow', fillColor: 'yellow' });
+  } else if (markersWithinRadius >= 2) {
     circle.setStyle({ color: 'yellow', fillColor: 'yellow' });
   }
 }
