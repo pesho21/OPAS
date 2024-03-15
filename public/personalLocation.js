@@ -1,12 +1,24 @@
 function addPersonalLocationMarker(lat, lng, popupContent, isPersonalLocation = false) {
-  var markerIcon = isPersonalLocation ? L.icon({
-    iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
-    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-  }) : undefined;
+  var markerIcon;
+
+  if (isPersonalLocation) {
+    markerIcon = L.icon({
+      iconUrl: 'person_marker.png',
+      iconSize: [130, 72], // Adjust according to your image dimensions
+      iconAnchor: [65, 72], // Half of iconSize width, and full height
+      popupAnchor: [0, -36], // Popup offset relative to iconAnchor
+      shadowSize: [41, 41]
+    });
+  } else {
+    markerIcon = L.icon({
+      iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+      shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+      iconSize: [25, 41],
+      iconAnchor: [12, 41],
+      popupAnchor: [1, -34],
+      shadowSize: [41, 41]
+    });
+  }
 
   var marker = L.marker([lat, lng], { icon: markerIcon }).addTo(map);
   if (popupContent) {
