@@ -13,9 +13,8 @@ map.on('click', function(e) {
   var markersWithinRadius = 0;
   for (var i = 0; i < markers.length; i++) {
     var marker = markers[i];
-    // Check if the marker is the current location marker
     if (marker === currentLocationMarker) {
-      continue; // Skip counting the current location marker
+      continue; 
     }
     var markerLocation = marker.getLatLng();
     var markerDistance = clickedLocation.distanceTo(markerLocation);
@@ -24,10 +23,7 @@ map.on('click', function(e) {
     }
   }
 
-  // Rest of the code remains the same...
-
   console.log("Markers within radius: " + markersWithinRadius);
-  // Check if the clicked location is within any existing circles
   var withinExistingCircle = false;
   for (var j = 0; j < markers.length; j++) {
     var existingMarker = markers[j];
@@ -59,11 +55,10 @@ map.on('click', function(e) {
         fillOpacity: 0.2
       }).addTo(map);
       markers.push(newCircle);
-      console.log("New circle added with color: " + circleColor); // Add this line
+      console.log("New circle added with color: " + circleColor); 
     }
   }
 
-  // Update circle colors based on the number of markers within them
   for (var k = 0; k < markers.length; k++) {
     var circle = markers[k];
     if (circle instanceof L.Circle) {
@@ -83,7 +78,6 @@ map.on('click', function(e) {
     var pollutionType = document.getElementById('pollutionType').value;
     var description = document.getElementById('description').value;
     var photo = document.getElementById('photo').files[0];
-
     if (pollutionType && description && photo) {
       var reader = new FileReader();
       reader.onload = function(e) {
