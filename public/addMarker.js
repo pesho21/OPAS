@@ -28,7 +28,8 @@ function addMarker(lat, lng, popupContent) {
                 if (!response.ok) {
                     throw new Error('Failed to add marker');
                 }
-                location.reload();
+                displayMarkers(lat, lng, popupContent);
+                closeForm();
                 return response.json();
             })
          return response.json(); 

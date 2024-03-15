@@ -1,3 +1,11 @@
+function openForm() {
+  document.getElementById("overlay").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("overlay").style.display = "none";
+}
+
 map.on('click', function(e) {
   var lat = e.latlng.lat.toFixed(6);
   var lng = e.latlng.lng.toFixed(6);
@@ -66,12 +74,10 @@ map.on('click', function(e) {
     }
   }
 
+  openForm();
   document.getElementById('pollutionType').value = '';
   document.getElementById('description').value = '';
   document.getElementById('photo').value = '';
-  document.getElementById('markerForm').style.display = 'block';
-  document.getElementById('markerForm').style.left = e.containerPoint.x + 'px';
-  document.getElementById('markerForm').style.top = e.containerPoint.y + 'px';
   document.getElementById('markerForm').onsubmit = function(event) {
     event.preventDefault();
 

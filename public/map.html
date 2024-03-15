@@ -12,32 +12,49 @@
           integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
             integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css"/>
     <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
     <link rel="stylesheet" href="style.css">
+    <script>
+        function closeForm() {
+            document.getElementById("overlay").style.display = "none";
+        }
+
+    </script>
 </head>
 <body>
-
-<!--<nav class="navbar navbar-expand-sm navbar-light bg-white">
-    <a href="#" class="navbar-brand mb-0 h1">
-        <img src="ocean_logo.png" alt="logo" width="60" height="50">
-    </a>
-</nav>-->
 <div id="logo-container">
     <img src="ocean_logo.png" alt="logo" width="60" height="50" style="z-index: 999">
 </div>
 
 <div id="map"></div>
+<div id="overlay" class="overlay">
+    <div id="markerForm" class="marker-form">
+        <button type="button" class="close" aria-label="Close" onclick="closeForm()">
+            <span aria-hidden="true" style="margin-bottom: 4px">&times;</span>
+        </button>
+<!--        <span class="material-symbols-outlined close-btn" onclick="closeForm()">close</span>-->
+        <form id="formContent" class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="pollutionType">Type of Pollution:</label>
+                <input type="text" class="form-control" id="pollutionType" name="pollutionType" required>
+                <div class="invalid-feedback">Please provide a type of pollution.</div>
+            </div>
+            <div class="form-group">
+                <label for="description">Description:</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required></textarea>
+                <div class="invalid-feedback">Please provide a description.</div>
+            </div>
+            <div class="form-group">
+                <label for="photo">Photo:</label>
+                <input type="file" class="form-control-file" id="photo" name="photo" accept="image/*" required>
+                <div class="invalid-feedback">Please provide a photo.</div>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Marker</button>
+        </form>
+    </div>
+</div>
 
-<form id="markerForm">
-    <label for="pollutionType">Type of Pollution:</label>
-    <input type="text" id="pollutionType" name="pollutionType" required><br>
-    <label for="description">Description:</label>
-    <textarea id="description" name="description" rows="4" required></textarea><br>
-    <label for="photo">Photo:</label>
-    <input type="file" id="photo" name="photo" accept="image/*" required><br>
-    <button type="submit">Add Marker</button>
-</form>
 <script src="addMarker.js"></script>
 <script src="personalLocation.js"></script>
 <script src="onClick.js"></script>

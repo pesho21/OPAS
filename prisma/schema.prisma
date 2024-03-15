@@ -15,3 +15,11 @@ model markers {
   description   String 
   photo  String
 }
+
+model circles{
+  id        String   @id @default(uuid())
+  radius  Float
+  color String
+  fillColor   String 
+  fillOpacity   Float 
+}
