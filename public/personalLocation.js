@@ -4,9 +4,9 @@ function addPersonalLocationMarker(lat, lng, popupContent, isPersonalLocation = 
   if (isPersonalLocation) {
     markerIcon = L.icon({
       iconUrl: 'person_marker.png',
-      iconSize: [130, 72], // Adjust according to your image dimensions
-      iconAnchor: [65, 72], // Half of iconSize width, and full height
-      popupAnchor: [0, -36], // Popup offset relative to iconAnchor
+      iconSize: [130, 72],
+      iconAnchor: [65, 72],
+      popupAnchor: [0, -36],
       shadowSize: [41, 41]
     });
   } else {
