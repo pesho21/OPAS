@@ -4,7 +4,7 @@
 
 # OPAS - Ocean Pollution Awareness System
 
-OPAS is a cutting-edge mobile web application designed to empower individuals to take action against ocean pollution by reporting garbage and waste sightings in the ocean. With its intuitive interface and seamless functionality, OceanWatch harnesses the power of crowdsourcing to collect real-time data on ocean pollution, enabling users to make a tangible impact on marine conservation efforts.
+OPAS is a cutting-edge mobile web application designed to empower individuals to take action against ocean pollution by reporting garbage and waste sightings in the ocean. With its intuitive interface and seamless functionality, OPAS harnesses the power of crowdsourcing to collect real-time data on ocean pollution, enabling users to make a tangible impact on marine conservation efforts.
 
 ## Technologies Used
 
