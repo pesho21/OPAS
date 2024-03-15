@@ -5,6 +5,7 @@ var map = L.map('map').setView([0, 0], 13);
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
   }).addTo(map);
 
+  L.Control.geocoder().addTo(map);
   var markers = [];
   var currentLocationMarker;
   var circle;
