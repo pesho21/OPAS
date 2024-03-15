@@ -39,7 +39,7 @@ function addMarker(lat, lng, popupContent) {
         // Add marker to map
         var marker = L.marker([newMarker.latitude, newMarker.longitude]).addTo(map);
         if (popupContent) {
-            marker.bindPopup(popupContent[0] + '<br>' + popupContent[1] + '<br><img src="' + popupContent[2] + '" width="200" height="200">');
+            marker.bindPopup(popupContent[0] + '<br>' + popupContent[1] + '<br><img alt="popup" src="' + popupContent[2] + '" width="200" height="200">');
         }
         markers.push(marker);
         updateCircleColor();
