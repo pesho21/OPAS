@@ -75,6 +75,7 @@ map.on('click', function(e) {
   }
 
   openForm();
+  openForm();
   document.getElementById('pollutionType').value = '';
   document.getElementById('description').value = '';
   document.getElementById('photo').value = '';
